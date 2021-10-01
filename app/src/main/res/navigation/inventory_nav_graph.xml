@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/inventory_nav_graph"
+    app:startDestination="@id/searchPage">
+
+    <fragment
+        android:id="@+id/searchPage"
+        android:name="com.example.invapp.inventory.SearchPage"
+        android:label="fragment_search_page"
+        tools:layout="@layout/fragment_search_page" >
+        <action
+            android:id="@+id/action_searchPage_to_searchResultPage"
+            app:destination="@id/searchResultPage"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchResultPage"
+        android:name="com.example.invapp.inventory.SearchResultPage"
+        android:label="fragment_search_result_page"
+        tools:layout="@layout/fragment_search_result_page" >
+        <action
+            android:id="@+id/action_searchResultPage_to_selectSearchResultPage"
+            app:destination="@id/selectSearchResultPage"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectSearchResultPage"
+        android:name="com.example.invapp.inventory.SelectSearchResultPage"
+        android:label="fragment_select_search_result_page"
+        tools:layout="@layout/fragment_select_search_result_page" >
+        <action
+            android:id="@+id/action_selectSearchResultPage_to_singleInventoryPage"
+            app:destination="@id/singleInventoryPage"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/singleInventoryPage"
+        android:name="com.example.invapp.inventory.SingleInventoryPage"
+        android:label="fragment_single_inventory_page"
+        tools:layout="@layout/fragment_single_inventory_page" />
+</navigation>

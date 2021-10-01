@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/qrcode_nav_graph"
+    app:startDestination="@id/scannerPage">
+
+    <fragment
+        android:id="@+id/scannerPage"
+        android:name="com.example.invapp.qrcode.ScannerPage"
+        android:label="fragment_scanner_page"
+        tools:layout="@layout/fragment_scanner_page" >
+        <action
+            android:id="@+id/action_scannerPage_to_scanResultPage"
+            app:destination="@id/scanResultPage"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/scanResultPage"
+        android:name="com.example.invapp.qrcode.ScanResultPage"
+        android:label="fragment_scan_result_page"
+        tools:layout="@layout/fragment_scan_result_page" >
+        <action
+            android:id="@+id/action_scanResultPage_to_scanInventoryPage"
+            app:destination="@id/scanInventoryPage"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/scanInventoryPage"
+        android:name="com.example.invapp.qrcode.ScanInventoryPage"
+        android:label="fragment_scan_inventory_page"
+        tools:layout="@layout/fragment_scan_inventory_page" />
+</navigation>
