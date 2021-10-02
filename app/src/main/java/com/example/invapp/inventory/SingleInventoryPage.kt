@@ -1,15 +1,26 @@
 package com.example.invapp.inventory
 
+import android.content.Context
+import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.view.inputmethod.InputMethodManager
+import android.widget.*
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.example.invapp.R
+import com.example.invapp.qrcode.QrcodeActivity
 import com.example.invapp.singleton.SingletonClass
+import org.json.JSONArray
+import org.json.JSONObject
 
 class SingleInventoryPage : Fragment() {
 
@@ -33,8 +44,12 @@ class SingleInventoryPage : Fragment() {
         val textViewMSingleName = requireView().findViewById<TextView>(R.id.textView_singleName)
         val textViewSingleCode = requireView().findViewById<TextView>(R.id.textView_singleCode)
         val buttonSave = requireView().findViewById<Button>(R.id.button_save)
+        val toggleButton = requireView().findViewById<ToggleButton>(R.id.toggleButton)
         val buttonGoHome = requireView().findViewById<Button>(R.id.button_goHome)
         val buttonBack = requireView().findViewById<Button>(R.id.button_back)
+        val textViewSingleInventoryUnit = requireView().findViewById<TextView>(R.id.textView_singleInventoryUnit)
+        val progressBarSingleInventory = requireView().findViewById<ProgressBar>(R.id.progressBar_singleInventory)
+        val editTextCalculateAmount = requireView().findViewById<EditText>(R.id.editText_calculateAmount)
 
         val unit : String = SingletonClass.instance.inventoryUnit.toString()
         val group : String = SingletonClass.instance.inventoryGroup.toString()
@@ -57,5 +72,69 @@ class SingleInventoryPage : Fragment() {
             activity?.onBackPressed()
         }
 
+        // 檢查加減按鈕，設置顏色
+        toggleButton.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                buttonView.setBackgroundColor(Color.parseColor("#32e370"))
+            } else {
+                buttonView.setBackgroundColor(Color.parseColor("#ff4444"))
+            }
+        }
+
+        // 設定加減單一藥品數量的計價單位
+        val url = SingletonClass.instance.ip + "/appGetSingleInventoryUnit/$unit/$group/$code"
+        val queue = Volley.newRequestQueue(activity?.applicationContext)
+        val stringRequest = StringRequest(
+            Request.Method.GET, url,
+            { response ->
+                if (JSONArray(response) == JSONArray()) {
+                    Toast.makeText(context, "計價單位取得失敗", Toast.LENGTH_SHORT).show()
+                } else {
+                    val salesUnit = JSONObject(JSONArray(response)[0].toString())
+                    textViewSingleInventoryUnit.text = salesUnit.get("計價單位").toString()
+                }
+            },
+            {
+                Toast.makeText(context, "連線失敗", Toast.LENGTH_SHORT).show()
+            })
+        queue.add(stringRequest)
+
+        // 按鈕儲存繼續輸入，送出加減，以及App盤點數量，給server做加減
+        buttonSave.setOnClickListener {
+            val calculateAmount = editTextCalculateAmount.text.toString()
+            if (calculateAmount == "") {
+                Toast.makeText(context, "請輸入加減數量", Toast.LENGTH_SHORT).show()
+            } else {
+                progressBarSingleInventory.visibility = View.VISIBLE
+                val jsonObject = JSONObject()
+                jsonObject.put("單位", unit)
+                jsonObject.put("組別", group)
+                jsonObject.put("代碼", code)
+                if (toggleButton.isChecked) {
+                    jsonObject.put("App盤點數量", calculateAmount)
+                } else {
+                    jsonObject.put("App盤點數量", "-$calculateAmount")
+                }
+                val url2 = SingletonClass.instance.ip + "/appSingleInventory"
+                val queue2 = Volley.newRequestQueue(activity?.applicationContext)
+                val jsonObjectRequest = JsonObjectRequest(
+                    Request.Method.POST, url2, jsonObject,
+                    { response ->
+                        println("DEBUG: $response")
+                        progressBarSingleInventory.visibility = View.INVISIBLE
+                        Toast.makeText(context, "儲存完成", Toast.LENGTH_SHORT).show()
+                        activity?.finish()
+                        val intent = Intent(activity, InventoryActivity::class.java)
+                        startActivity(intent)
+                    },
+                    {
+                        progressBarSingleInventory.visibility = View.INVISIBLE
+                        Toast.makeText(context, "儲存失敗", Toast.LENGTH_SHORT).show()
+                    })
+                queue2.add(jsonObjectRequest)
+            }
+        }
     }
+
+
 }

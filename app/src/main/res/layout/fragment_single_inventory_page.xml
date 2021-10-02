@@ -207,4 +207,55 @@
 
         </TableRow>
     </TableLayout>
+
+    <ToggleButton
+        android:id="@+id/toggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#32e370"
+        android:checked="true"
+        android:textColor="#000000"
+        android:textOff="減"
+        android:textOn="加"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/editText_calculateAmount"
+        app:layout_constraintEnd_toStartOf="@+id/editText_calculateAmount"
+        app:layout_constraintTop_toTopOf="@+id/editText_calculateAmount" />
+
+    <EditText
+        android:id="@+id/editText_calculateAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="5"
+        android:gravity="center"
+        android:inputType="number"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline23"
+        app:layout_constraintStart_toStartOf="@+id/guideline22"
+        app:layout_constraintTop_toTopOf="@+id/guideline24" />
+
+    <TextView
+        android:id="@+id/textView_singleInventoryUnit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/editText_calculateAmount"
+        app:layout_constraintStart_toEndOf="@+id/editText_calculateAmount"
+        app:layout_constraintTop_toTopOf="@+id/editText_calculateAmount"
+        tools:text="錠" />
+
+    <ProgressBar
+        android:id="@+id/progressBar_singleInventory"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/button_save"
+        app:layout_constraintEnd_toStartOf="@+id/guideline23"
+        app:layout_constraintStart_toStartOf="@+id/guideline22" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
