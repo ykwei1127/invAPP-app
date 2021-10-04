@@ -36,8 +36,8 @@ class SingleInventoryPage : Fragment() {
         return inflater.inflate(R.layout.fragment_single_inventory_page, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
         val textViewSingleUnit = requireView().findViewById<TextView>(R.id.textView_singleUnit)
         val textViewSingleGroup = requireView().findViewById<TextView>(R.id.textView_singleGroup)
@@ -55,6 +55,10 @@ class SingleInventoryPage : Fragment() {
         val group : String = SingletonClass.instance.inventoryGroup.toString()
         val code : String = SingletonClass.instance.inventoryCode.toString()
         val name : String = SingletonClass.instance.inventoryName.toString()
+
+        // 取得加減單一藥品數量的計價單位
+        val unitResult = arguments?.getString("unitResult").toString()
+        textViewSingleInventoryUnit.text = unitResult
 
         // 將資料顯示在表格
         textViewSingleUnit.text = unit
@@ -81,24 +85,6 @@ class SingleInventoryPage : Fragment() {
             }
         }
 
-        // 設定加減單一藥品數量的計價單位
-        val url = SingletonClass.instance.ip + "/appGetSingleInventoryUnit/$unit/$group/$code"
-        val queue = Volley.newRequestQueue(activity?.applicationContext)
-        val stringRequest = StringRequest(
-            Request.Method.GET, url,
-            { response ->
-                if (JSONArray(response) == JSONArray()) {
-                    Toast.makeText(context, "計價單位取得失敗", Toast.LENGTH_SHORT).show()
-                } else {
-                    val salesUnit = JSONObject(JSONArray(response)[0].toString())
-                    textViewSingleInventoryUnit.text = salesUnit.get("計價單位").toString()
-                }
-            },
-            {
-                Toast.makeText(context, "連線失敗", Toast.LENGTH_SHORT).show()
-            })
-        queue.add(stringRequest)
-
         // 按鈕儲存繼續輸入，送出加減，以及App盤點數量，給server做加減
         buttonSave.setOnClickListener {
             val calculateAmount = editTextCalculateAmount.text.toString()
@@ -115,10 +101,10 @@ class SingleInventoryPage : Fragment() {
                 } else {
                     jsonObject.put("App盤點數量", "-$calculateAmount")
                 }
-                val url2 = SingletonClass.instance.ip + "/appSingleInventory"
-                val queue2 = Volley.newRequestQueue(activity?.applicationContext)
+                val url = SingletonClass.instance.ip + "/appSingleInventory"
+                val queue = Volley.newRequestQueue(activity?.applicationContext)
                 val jsonObjectRequest = JsonObjectRequest(
-                    Request.Method.POST, url2, jsonObject,
+                    Request.Method.POST, url, jsonObject,
                     { response ->
                         println("DEBUG: $response")
                         progressBarSingleInventory.visibility = View.INVISIBLE
@@ -131,10 +117,9 @@ class SingleInventoryPage : Fragment() {
                         progressBarSingleInventory.visibility = View.INVISIBLE
                         Toast.makeText(context, "儲存失敗", Toast.LENGTH_SHORT).show()
                     })
-                queue2.add(jsonObjectRequest)
+                queue.add(jsonObjectRequest)
             }
         }
     }
-
 
 }

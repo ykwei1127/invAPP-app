@@ -239,7 +239,6 @@
         android:id="@+id/textView_singleInventoryUnit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/editText_calculateAmount"

@@ -73,7 +73,7 @@ class SearchPage : Fragment() {
                         }
                         // 關閉鍵盤
                         val imm : InputMethodManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                        imm.hideSoftInputFromWindow(view?.windowToken,0)
+                        imm.hideSoftInputFromWindow(view.windowToken,0)
                     },
                     {
                         progressBarSearch.visibility = View.INVISIBLE

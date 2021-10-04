@@ -1,18 +1,15 @@
 package com.example.invapp.inventory
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
@@ -36,13 +33,13 @@ class SelectSearchResultPage : Fragment() {
         return inflater.inflate(R.layout.fragment_select_search_result_page, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         val buttonGoHome = requireView().findViewById<Button>(R.id.button_goHome)
         val buttonGoSearch = requireView().findViewById<Button>(R.id.button_goSearch)
         val textViewSelectResult = requireView().findViewById<TextView>(R.id.textView_selectResult)
         val recyclerViewSelectSearchResult = requireView().findViewById<RecyclerView>(R.id.recyclerView_selectSearchResult)
+        val progressBarSelectSearchResult = requireView().findViewById<ProgressBar>(R.id.progressBar_selectSearchResult)
 
         // 選擇的藥品名稱
         textViewSelectResult.text = SingletonClass.instance.inventoryName
@@ -57,14 +54,17 @@ class SelectSearchResultPage : Fragment() {
             Request.Method.GET, url,
             { response ->
                 if (JSONArray(response) == JSONArray()) {
+                    progressBarSelectSearchResult.visibility = View.INVISIBLE
                     Toast.makeText(context, "列出藥品位置失敗", Toast.LENGTH_SHORT).show()
                 } else {
+                    progressBarSelectSearchResult.visibility = View.INVISIBLE
                     val dataset = JSONArray(response)
                     recyclerViewSelectSearchResult.adapter = SelectSearchResultAdapter(dataset)
                     recyclerViewSelectSearchResult.setHasFixedSize(true)
                 }
             },
             {
+                progressBarSelectSearchResult.visibility = View.INVISIBLE
                 Toast.makeText(context, "連線失敗", Toast.LENGTH_SHORT).show()
             })
         queue.add(stringRequest)
