@@ -89,7 +89,7 @@ class SingleInventoryPage : Fragment() {
         buttonSave.setOnClickListener {
             val calculateAmount = editTextCalculateAmount.text.toString()
             if (calculateAmount == "") {
-                Toast.makeText(context, "請輸入加減數量", Toast.LENGTH_SHORT).show()
+                editTextCalculateAmount.error = "請輸入加減數量"
             } else {
                 progressBarSingleInventory.visibility = View.VISIBLE
                 val jsonObject = JSONObject()

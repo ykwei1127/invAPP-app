@@ -84,6 +84,8 @@ class ScanInventoryPage : Fragment() {
                 if (jsonObject["預包單位"].toString() == "無") {
                     textViewPrePackedUnit.visibility = View.INVISIBLE
                     editTextInputPrePackedNumber.setText("0")
+                    editTextInputPrePackedNumber.isEnabled = false
+                    textViewAutoCount.text = "0"
                 }
                 textViewPrePackedUnit.text = jsonObject["預包單位"].toString()
                 textViewSalesUnit.text = jsonObject["計價單位"].toString()
@@ -131,14 +133,14 @@ class ScanInventoryPage : Fragment() {
                                 }
                                 editTextInputNumber.addTextChangedListener(this)
                             }
-                        } else {
+                        }  else {
                             if (editTextInputPrePackedNumber.text.hashCode() == s.hashCode() && editTextInputNumber.text.toString() != "") {
                                 textViewAutoCount.text = editTextInputNumber.text.toString()
                             } else if (editTextInputNumber.text.hashCode() == s.hashCode() && editTextInputPrePackedNumber.text.toString() != "") {
                                 val n1 = editTextInputPrePackedNumber.text.toString().toInt()
                                 textViewAutoCount.text = (n1 * prePackedNumber).toString()
                             } else {
-                                textViewAutoCount.text = "0"
+                                textViewAutoCount.text = "即時小計"
                             }
                         }
                     }
@@ -156,7 +158,7 @@ class ScanInventoryPage : Fragment() {
         // 儲存繼續輸入
         buttonSave.setOnClickListener {
             val result = textViewAutoCount.text.toString()
-            if (result == "0") {
+            if (result == "即時小計") {
                 Toast.makeText(context, "請輸入數量", Toast.LENGTH_SHORT).show()
             } else {
                 progressBarQrcode.visibility = View.VISIBLE

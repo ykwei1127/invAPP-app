@@ -67,6 +67,7 @@ class SearchPage : Fragment() {
                         } else {
                             progressBarSearch.visibility = View.INVISIBLE
                             val bundle = Bundle()
+                            bundle.putString("query", query)
                             bundle.putString("searchResult", response)
                             val controller: NavController = requireView().let { it1 -> Navigation.findNavController(it1) }
                             controller.navigate(R.id.action_searchPage_to_searchResultPage, bundle)

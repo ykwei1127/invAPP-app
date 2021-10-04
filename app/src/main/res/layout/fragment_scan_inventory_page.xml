@@ -275,7 +275,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="0"
+        android:text="即時小計"
         android:textColor="#118bee"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/textView_plus"
@@ -292,19 +292,6 @@
         app:layout_constraintBottom_toTopOf="@+id/button_back"
         app:layout_constraintEnd_toStartOf="@+id/guideline12"
         app:layout_constraintStart_toStartOf="@+id/guideline11" />
-
-    <TextView
-        android:id="@+id/textView_num"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:shadowColor="@color/black"
-        android:text="即時小計:"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_autoCount"
-        app:layout_constraintEnd_toStartOf="@+id/textView_autoCount"
-        app:layout_constraintTop_toTopOf="@+id/textView_autoCount" />
 
     <ProgressBar
         android:id="@+id/progressBar_qrcode"

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.invapp.R
 import com.example.invapp.adapter.SearchResultAdapter
@@ -33,6 +34,11 @@ class SearchResultPage : Fragment() {
         val buttonGoHome = requireView().findViewById<Button>(R.id.button_goHome)
         val buttonGoSearch = requireView().findViewById<Button>(R.id.button_goSearch)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView_searchResult)
+        val textViewSearchResultTitle = view.findViewById<TextView>(R.id.textView_searchResultTitle)
+
+        // 查詢關鍵字
+        val query = arguments?.getString("query").toString()
+        textViewSearchResultTitle.text = "查詢結果: $query"
 
         // 查詢結果表
         SingletonClass.instance.inventoryCode = ""

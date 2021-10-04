@@ -46,7 +46,12 @@ class SelectSearchResultAdapter(private val dataset: JSONArray) : RecyclerView.A
         }
         holder.textViewSelectMedUnit.text = item.get("單位").toString()
         holder.textViewSelectMedGroup.text = item.get("組別").toString()
-        holder.textViewSelectMedAmount.text = item.get("App盤點總數量").toString()
+        if (item.get("App盤點總數量").toString() == "null") {
+            holder.textViewSelectMedAmount.text = ""
+        } else {
+            holder.textViewSelectMedAmount.text = item.get("App盤點總數量").toString()
+        }
+
 
         holder.tableRowSelectSearchResult.setOnClickListener {
             SingletonClass.instance.inventoryUnit = item.get("單位").toString()
