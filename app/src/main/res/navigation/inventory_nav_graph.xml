@@ -43,10 +43,22 @@
             app:exitAnim="@anim/fragment_close_exit"
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popExitAnim="@anim/fragment_close_exit" />
+        <action
+            android:id="@+id/action_selectSearchResultPage_to_firstTimeInventoryPage"
+            app:destination="@id/firstTimeInventoryPage"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
     </fragment>
     <fragment
         android:id="@+id/singleInventoryPage"
         android:name="com.example.invapp.inventory.SingleInventoryPage"
         android:label="fragment_single_inventory_page"
         tools:layout="@layout/fragment_single_inventory_page" />
+    <fragment
+        android:id="@+id/firstTimeInventoryPage"
+        android:name="com.example.invapp.inventory.FirstTimeInventoryPage"
+        android:label="fragment_first_time_inventory_page"
+        tools:layout="@layout/fragment_first_time_inventory_page" />
 </navigation>

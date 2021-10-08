@@ -4,43 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".qrcode.ScanInventoryPage">
-
-    <Button
-        android:id="@+id/button_goHome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="回首頁"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline8"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline20"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.45" />
+    tools:context=".inventory.FirstTimeInventoryPage" >
 
     <TableLayout
-        android:id="@+id/tableLayout2"
+        android:id="@+id/tableLayout3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="#000000"
         android:orientation="vertical"
         android:stretchColumns="1"
-        app:layout_constraintBottom_toTopOf="@+id/guideline20"
-        app:layout_constraintEnd_toStartOf="@+id/guideline12"
-        app:layout_constraintStart_toStartOf="@+id/guideline11"
-        app:layout_constraintTop_toTopOf="@+id/guideline8"
+        app:layout_constraintBottom_toTopOf="@+id/guideline26"
+        app:layout_constraintEnd_toStartOf="@+id/guideline28"
+        app:layout_constraintStart_toStartOf="@+id/guideline27"
+        app:layout_constraintTop_toTopOf="@+id/guideline25"
         app:layout_constraintVertical_bias="0.0">
 
         <TableRow
@@ -63,7 +39,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/textView_qrcodeUnit"
+                android:id="@+id/textView_firstTimeUnit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
@@ -96,7 +72,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/textView_qrcodeGroup"
+                android:id="@+id/textView_firstTimeGroup"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="2dp"
@@ -128,7 +104,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/textView_qrcodeName"
+                android:id="@+id/textView_firstTimeName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="2dp"
@@ -160,7 +136,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/textView_qrcodeCode"
+                android:id="@+id/textView_firstTimeCode"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="2dp"
@@ -174,135 +150,28 @@
         </TableRow>
     </TableLayout>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline11"
+    <ProgressBar
+        android:id="@+id/progressBar_firstTime"
+        style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.1" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.9" />
-
-    <TextView
-        android:id="@+id/textView_inputTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="請輸入數量"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:textStyle="normal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline20" />
-
-    <EditText
-        android:id="@+id/editText_inputPrePackedNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="3"
-        android:gravity="center"
-        android:inputType="number"
-        android:textColor="#118bee"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_prePackedUnit"
-        app:layout_constraintEnd_toStartOf="@+id/textView_prePackedUnit"
-        app:layout_constraintTop_toTopOf="@+id/textView_prePackedUnit"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <TextView
-        android:id="@+id/textView_prePackedUnit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:shadowColor="@color/black"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_plus"
-        app:layout_constraintEnd_toStartOf="@+id/textView_plus"
-        app:layout_constraintTop_toTopOf="@+id/textView_plus"
-        tools:text="盒" />
-
-    <TextView
-        android:id="@+id/textView_salesUnit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:shadowColor="@color/black"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="@+id/editText_inputNumber"
-        app:layout_constraintStart_toEndOf="@+id/editText_inputNumber"
-        app:layout_constraintTop_toTopOf="@+id/editText_inputNumber"
-        tools:text="錠" />
-
-    <TextView
-        android:id="@+id/textView_plus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:shadowColor="@color/black"
-        android:text="+"
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="@+id/textView_inputTitle"
-        app:layout_constraintStart_toStartOf="@+id/textView_inputTitle"
-        app:layout_constraintTop_toBottomOf="@+id/textView_inputTitle" />
-
-    <EditText
-        android:id="@+id/editText_inputNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:ems="3"
-        android:gravity="center"
-        android:inputType="number"
-        android:textColor="#118bee"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_plus"
-        app:layout_constraintStart_toEndOf="@+id/textView_plus"
-        app:layout_constraintTop_toTopOf="@+id/textView_plus"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <TextView
-        android:id="@+id/textView_autoCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="即時小計"
-        android:textColor="#118bee"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/textView_plus"
-        app:layout_constraintStart_toStartOf="@+id/textView_plus"
-        app:layout_constraintTop_toBottomOf="@+id/textView_plus" />
+        android:layout_marginBottom="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/button_save2"
+        app:layout_constraintEnd_toStartOf="@+id/guideline28"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="@+id/guideline27" />
 
     <Button
-        android:id="@+id/button_save"
+        android:id="@+id/button_save2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="儲存繼續輸入"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/button_back"
-        app:layout_constraintEnd_toStartOf="@+id/guideline12"
-        app:layout_constraintStart_toStartOf="@+id/guideline11" />
-
-    <ProgressBar
-        android:id="@+id/progressBar_qrcode"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/button_save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline28"
+        app:layout_constraintStart_toStartOf="@+id/guideline27" />
 
     <Button
         android:id="@+id/button_back"
@@ -312,7 +181,139 @@
         android:text="上一頁"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline12"
-        app:layout_constraintStart_toStartOf="@+id/guideline11" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline28"
+        app:layout_constraintStart_toStartOf="@+id/guideline27" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <TextView
+        android:id="@+id/textView_autoCount2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="即時小計"
+        android:textColor="#118bee"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView_plus2"
+        app:layout_constraintStart_toEndOf="@+id/textView_prePackedUnit2"
+        app:layout_constraintStart_toStartOf="@+id/textView_plus2"
+        app:layout_constraintTop_toBottomOf="@+id/textView_plus2" />
+
+    <EditText
+        android:id="@+id/editText_inputPrePackedNumber2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="3"
+        android:gravity="center"
+        android:inputType="number"
+        android:textColor="#118bee"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_prePackedUnit2"
+        app:layout_constraintEnd_toStartOf="@+id/textView_prePackedUnit2"
+        app:layout_constraintTop_toTopOf="@+id/textView_prePackedUnit2"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/textView_salesUnit2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:shadowColor="@color/black"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/editText_inputNumber2"
+        app:layout_constraintStart_toEndOf="@+id/editText_inputNumber2"
+        app:layout_constraintTop_toTopOf="@+id/editText_inputNumber2"
+        tools:text="錠" />
+
+    <EditText
+        android:id="@+id/editText_inputNumber2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:ems="3"
+        android:gravity="center"
+        android:inputType="number"
+        android:textColor="#118bee"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_plus2"
+        app:layout_constraintStart_toEndOf="@+id/textView_plus2"
+        app:layout_constraintTop_toTopOf="@+id/textView_plus2"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/textView_prePackedUnit2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:shadowColor="@color/black"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_plus2"
+        app:layout_constraintEnd_toStartOf="@+id/textView_plus2"
+        app:layout_constraintTop_toTopOf="@+id/textView_plus2"
+        tools:text="盒" />
+
+    <TextView
+        android:id="@+id/textView_plus2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:shadowColor="@color/black"
+        android:text="+"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView_inputTitle2"
+        app:layout_constraintStart_toStartOf="@+id/textView_inputTitle2"
+        app:layout_constraintTop_toBottomOf="@+id/textView_inputTitle2" />
+
+    <TextView
+        android:id="@+id/textView_inputTitle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="請輸入數量"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline26" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.45" />
+
+    <Button
+        android:id="@+id/button_goHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
