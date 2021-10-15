@@ -57,8 +57,23 @@ class SingleInventoryPage : Fragment() {
         val name : String = SingletonClass.instance.inventoryName.toString()
 
         // 取得加減單一藥品數量的計價單位
-        val unitResult = arguments?.getString("unitResult").toString()
-        textViewSingleInventoryUnit.text = unitResult
+        val urlUnit = SingletonClass.instance.ip + "/appGetSingleInventoryUnit/$unit/$group/$code"
+        val queueUnit = Volley.newRequestQueue(activity?.applicationContext)
+        val stringRequest = StringRequest(
+            Request.Method.GET, urlUnit,
+            { response ->
+                if (JSONArray(response) == JSONArray()) {
+                    Toast.makeText(context, "計價單位取得失敗", Toast.LENGTH_SHORT).show()
+                } else {
+                    val salesUnit = JSONObject(JSONArray(response)[0].toString())
+                    val unitResult = salesUnit.get("計價單位").toString()
+                    textViewSingleInventoryUnit.text = unitResult
+                }
+            },
+            {
+                Toast.makeText(context, "連線失敗", Toast.LENGTH_SHORT).show()
+            })
+        queueUnit.add(stringRequest)
 
         // 將資料顯示在表格
         textViewSingleUnit.text = unit

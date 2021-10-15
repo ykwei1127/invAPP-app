@@ -76,8 +76,14 @@ class ScannerPage : Fragment() {
                     //Log.d("MyTag", it.text.replace(" ",""))
                     val result = it.text.replace(" ","")
                     bundle.putString("scanResult", result)
-                    val controller: NavController = requireView().let { it1 -> Navigation.findNavController(it1) }
-                    controller.navigate(R.id.action_scannerPage_to_scanResultPage, bundle)
+                    if (result.contains("(") and result.contains(")")) {
+                        val controller: NavController = requireView().let { it1 -> Navigation.findNavController(it1) }
+                        controller.navigate(R.id.action_scannerPage_to_scanResultPage, bundle)
+                    } else {
+                        Toast.makeText(context, "QRCODE資料錯誤，請確認資料格式", Toast.LENGTH_SHORT).show()
+                        onResume()
+                    }
+
                 }
             }
 

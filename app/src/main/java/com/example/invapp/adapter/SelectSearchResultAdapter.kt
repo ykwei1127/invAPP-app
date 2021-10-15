@@ -6,10 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TableLayout
-import android.widget.TableRow
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
@@ -64,27 +61,9 @@ class SelectSearchResultAdapter(private val dataset: JSONArray) : RecyclerView.A
                 val controller : NavController = Navigation.findNavController(holder.itemView)
                 controller.navigate(R.id.action_selectSearchResultPage_to_firstTimeInventoryPage)
             } else {
-                // 取得加減單一藥品數量的計價單位，進入單一盤點畫面
-                val url = SingletonClass.instance.ip + "/appGetSingleInventoryUnit/$unit/$group/$code"
-                val queue = Volley.newRequestQueue(holder.itemView.context)
-                val stringRequest = StringRequest(
-                    Request.Method.GET, url,
-                    { response ->
-                        if (JSONArray(response) == JSONArray()) {
-                            Toast.makeText(holder.itemView.context, "計價單位取得失敗", Toast.LENGTH_SHORT).show()
-                        } else {
-                            val salesUnit = JSONObject(JSONArray(response)[0].toString())
-                            val unitResult = salesUnit.get("計價單位").toString()
-                            val bundle = Bundle()
-                            bundle.putString("unitResult", unitResult)
-                            val controller : NavController = Navigation.findNavController(holder.itemView)
-                            controller.navigate(R.id.action_selectSearchResultPage_to_singleInventoryPage, bundle)
-                        }
-                    },
-                    {
-                        Toast.makeText(holder.itemView.context, "連線失敗", Toast.LENGTH_SHORT).show()
-                    })
-                queue.add(stringRequest)
+                // 進入單一盤點畫面
+                val controller : NavController = Navigation.findNavController(holder.itemView)
+                controller.navigate(R.id.action_selectSearchResultPage_to_singleInventoryPage)
             }
         }
     }

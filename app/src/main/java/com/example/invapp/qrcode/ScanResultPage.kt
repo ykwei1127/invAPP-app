@@ -57,45 +57,49 @@ class ScanResultPage : Fragment() {
 
         // 列出位置藥品
         var scanResult = arguments?.getString("scanResult").toString()
+        // 判斷QRCODE有沒有問題
+        if (scanResult.contains("(") and scanResult.contains(")")) {
+            val temp = scanResult.replace(")",") ")
+            val position = temp.split(" ")
+            SingletonClass.instance.qrcodeUnit = position[0].trim()
+            SingletonClass.instance.qrcodeGroup = position[1].trim()
+            SingletonClass.instance.qrcodeCode = ""
+            SingletonClass.instance.qrcodeName = ""
 
-        val temp = scanResult.replace(")",") ")
-        val position = temp.split(" ")
-        SingletonClass.instance.qrcodeUnit = position[0].trim()
-        SingletonClass.instance.qrcodeGroup = position[1].trim()
-        SingletonClass.instance.qrcodeCode = ""
-        SingletonClass.instance.qrcodeName = ""
+            textViewScanResult.text = scanResult.replace(")",")\n")
 
-        textViewScanResult.text = scanResult.replace(")",")\n")
-
-        // 取得server qrcode位置的藥品
-        scanResult = arguments?.getString("scanResult").toString()
-        scanResult = scanResult.replace(")",") ")
-        val url = SingletonClass.instance.ip + "/appGetQrcodeResults/$scanResult"
-        //println("DEBUG: $url")
-
-        val queue = Volley.newRequestQueue(activity?.applicationContext)
-        val stringRequest = StringRequest(
-            Request.Method.GET, url,
-            { response ->
-                val dataset = JSONArray(response)
-                val recyclerView = view?.findViewById<RecyclerView>(R.id.recyclerView_scanResult)
-                if (dataset.length() != 0){
+            // 取得server qrcode位置的藥品
+            scanResult = arguments?.getString("scanResult").toString()
+            scanResult = scanResult.replace(")",") ")
+            val url = SingletonClass.instance.ip + "/appGetQrcodeResults/$scanResult"
+            val queue = Volley.newRequestQueue(activity?.applicationContext)
+            val stringRequest = StringRequest(
+                Request.Method.GET, url,
+                { response ->
+                    val dataset = JSONArray(response)
+                    val recyclerView = view?.findViewById<RecyclerView>(R.id.recyclerView_scanResult)
+                    if (dataset.length() != 0){
+                        progressBarScanResult.visibility = View.INVISIBLE
+                        recyclerView?.adapter = ScanResultAdapter(this, dataset)
+                        recyclerView?.setHasFixedSize(true)
+                    } else {
+                        progressBarScanResult.visibility = View.INVISIBLE
+                        Toast.makeText(context, "查無資料，請重新掃描", Toast.LENGTH_LONG).show()
+                    }
+                },
+                {
                     progressBarScanResult.visibility = View.INVISIBLE
+                    val recyclerView = view?.findViewById<RecyclerView>(R.id.recyclerView_scanResult)
+                    val dataset = JSONArray()
                     recyclerView?.adapter = ScanResultAdapter(this, dataset)
                     recyclerView?.setHasFixedSize(true)
-                } else {
-                    progressBarScanResult.visibility = View.INVISIBLE
-                    Toast.makeText(context, "查無資料，請重新掃描", Toast.LENGTH_LONG).show()
-                }
-            },
-            {
-                progressBarScanResult.visibility = View.INVISIBLE
-                val recyclerView = view?.findViewById<RecyclerView>(R.id.recyclerView_scanResult)
-                val dataset = JSONArray()
-                recyclerView?.adapter = ScanResultAdapter(this, dataset)
-                recyclerView?.setHasFixedSize(true)
-                Toast.makeText(context, "連線失敗", Toast.LENGTH_SHORT).show()
-            })
-        queue.add(stringRequest)
+                    Toast.makeText(context, "連線失敗", Toast.LENGTH_SHORT).show()
+                })
+            queue.add(stringRequest)
+        } else {
+            progressBarScanResult.visibility = View.INVISIBLE
+            textViewScanResult.text = scanResult
+            Toast.makeText(context, "QRCODE資料錯誤", Toast.LENGTH_SHORT).show()
+        }
     }
 }
