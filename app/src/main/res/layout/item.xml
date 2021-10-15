@@ -7,10 +7,9 @@
 
     <TableLayout
         android:id="@+id/tableLayout"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:divider="@drawable/table_v_divider"
-        android:orientation="vertical"
         android:showDividers="end|none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,21 +18,22 @@
 
         <TableRow
             android:id="@+id/tableRow"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:divider="@drawable/table_h_divider"
-            android:gravity="center"
-            android:orientation="horizontal"
+            android:focusable="true"
+            android:gravity="center_vertical"
             android:showDividers="middle|end|beginning"
-            android:focusable="true">
+            android:weightSum="10">
 
 
             <TextView
                 android:id="@+id/textView_medCode"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
                 android:gravity="center"
                 android:padding="10dp"
                 android:textColor="@color/black"
@@ -42,8 +42,9 @@
 
             <TextView
                 android:id="@+id/textView_medName"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7"
                 android:gravity="center"
                 android:padding="10dp"
                 android:textColor="@color/black"

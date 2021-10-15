@@ -35,45 +35,45 @@
 
     <TableLayout
         android:id="@+id/tableLayout"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:divider="@drawable/table_v_divider"
-        android:orientation="vertical"
         android:showDividers="beginning|middle|end"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline23"
+        app:layout_constraintStart_toStartOf="@+id/guideline22"
         app:layout_constraintTop_toBottomOf="@+id/textView_scanResult">
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:divider="@drawable/table_h_divider"
-            android:orientation="horizontal"
-            android:showDividers="middle|beginning|end">
+            android:showDividers="middle|beginning|end"
+            android:weightSum="10">
 
             <TextView
                 android:id="@+id/textView_medCodeTitle"
-                android:layout_width="100dp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="3"
                 android:background="#118bee"
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="藥碼"
                 android:textColor="#FFFFFF"
-                android:textSize="24sp"
-                android:textStyle="normal" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/textView_medNameTitle"
-                android:layout_width="200dp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="7"
                 android:background="#118bee"
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="防錯商品名"
                 android:textColor="#FFFFFF"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textStyle="normal" />
 
         </TableRow>
@@ -82,14 +82,14 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_scanResult"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="24dp"
         android:scrollbars="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline23"
+        app:layout_constraintStart_toStartOf="@+id/guideline22"
         app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
 
     <ProgressBar
@@ -97,7 +97,7 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -111,10 +111,24 @@
         android:gravity="center"
         android:padding="10dp"
         android:textColor="#FFFFFF"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/tableLayout"
         app:layout_constraintStart_toStartOf="@+id/tableLayout"
         app:layout_constraintTop_toTopOf="@+id/guideline7" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

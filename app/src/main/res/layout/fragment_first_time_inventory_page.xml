@@ -10,143 +10,156 @@
         android:id="@+id/tableLayout3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#000000"
-        android:orientation="vertical"
-        android:stretchColumns="1"
-        app:layout_constraintBottom_toTopOf="@+id/guideline26"
+        android:divider="@drawable/table_v_divider"
+        android:showDividers="middle|beginning|end"
         app:layout_constraintEnd_toStartOf="@+id/guideline28"
         app:layout_constraintStart_toStartOf="@+id/guideline27"
-        app:layout_constraintTop_toTopOf="@+id/guideline25"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="@+id/guideline25">
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:divider="@drawable/table_h_divider"
+            android:showDividers="middle|beginning|end"
+            android:weightSum="10">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginEnd="2dp"
-                android:layout_marginBottom="2dp"
+                android:layout_weight="3"
                 android:background="#118bee"
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="小庫別"
                 android:textColor="#FFFFFF"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/textView_firstTimeUnit"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:layout_marginEnd="2dp"
-                android:layout_marginBottom="2dp"
-                android:background="#FFFFFF"
+                android:layout_height="match_parent"
+                android:layout_weight="7"
                 android:gravity="center"
                 android:padding="5dp"
                 android:textColor="#000000"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 tools:text="UD藥局(P2)" />
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:divider="@drawable/table_h_divider"
+            android:showDividers="middle|beginning|end"
+            android:weightSum="10">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginStart="2dp"
-                android:layout_marginEnd="2dp"
-                android:layout_marginBottom="2dp"
+                android:layout_weight="3"
                 android:background="#118bee"
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="組別"
                 android:textColor="#FFFFFF"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/textView_firstTimeGroup"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="2dp"
-                android:layout_marginBottom="2dp"
-                android:background="#FFFFFF"
+                android:layout_height="match_parent"
+                android:layout_weight="7"
                 android:gravity="center"
                 android:padding="5dp"
                 android:textColor="#000000"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 tools:text="D*1" />
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:divider="@drawable/table_h_divider"
+            android:showDividers="middle|beginning|end"
+            android:weightSum="10">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginStart="2dp"
-                android:layout_marginEnd="2dp"
-                android:layout_marginBottom="2dp"
+                android:layout_weight="3"
                 android:background="#118bee"
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="商品名"
                 android:textColor="#FFFFFF"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/textView_firstTimeName"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="2dp"
-                android:layout_marginBottom="2dp"
-                android:background="#FFFFFF"
+                android:layout_height="match_parent"
+                android:layout_weight="7"
                 android:gravity="center"
                 android:padding="5dp"
                 android:textColor="#000000"
-                android:textSize="24sp"
-                tools:text="AMARYL(降血糖藥)測試測試" />
+                android:textSize="20sp"
+                tools:text="AMARYL(降血糖藥)測試測試1231231" />
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:divider="@drawable/table_h_divider"
+            android:showDividers="middle|beginning|end"
+            android:weightSum="10">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginStart="2dp"
-                android:layout_marginEnd="2dp"
-                android:layout_marginBottom="2dp"
+                android:layout_weight="3"
                 android:background="#118bee"
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="藥碼"
                 android:textColor="#FFFFFF"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/textView_firstTimeCode"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="2dp"
-                android:layout_marginBottom="2dp"
-                android:background="#FFFFFF"
+                android:layout_height="match_parent"
+                android:layout_weight="7"
                 android:gravity="center"
                 android:padding="5dp"
                 android:textColor="#000000"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 tools:text="1ACA50" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:divider="@drawable/table_h_divider"
+            android:showDividers="middle|beginning|end"
+            android:weightSum="10">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="#118bee"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="圖片"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/imageView_firstTimeDrug"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="7"
+                android:src="@drawable/ic_baseline_photo_24" />
         </TableRow>
     </TableLayout>
 
@@ -166,7 +179,6 @@
         android:id="@+id/button_save2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:text="儲存繼續輸入"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/button_back"
@@ -177,7 +189,7 @@
         android:id="@+id/button_back"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:text="上一頁"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -189,20 +201,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.9" />
+        app:layout_constraintGuide_percent="0.95" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline27"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.1" />
+        app:layout_constraintGuide_percent="0.05" />
 
     <TextView
         android:id="@+id/textView_autoCount2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:text="即時小計"
         android:textColor="#118bee"
         android:textSize="24sp"
@@ -271,7 +283,7 @@
         android:id="@+id/textView_plus2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:shadowColor="@color/black"
         android:text="+"
         android:textColor="@color/black"
@@ -284,6 +296,7 @@
         android:id="@+id/textView_inputTitle2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="請輸入數量"
         android:textColor="@color/black"
         android:textSize="24sp"
@@ -291,7 +304,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline26" />
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout3" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline25"
@@ -299,13 +312,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.1" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline26"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.45" />
 
     <Button
         android:id="@+id/button_goHome"

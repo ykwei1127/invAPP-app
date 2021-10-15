@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
@@ -65,7 +66,11 @@ class SelectSearchResultPage : Fragment() {
             },
             {
                 progressBarSelectSearchResult.visibility = View.INVISIBLE
-                Toast.makeText(context, "連線失敗", Toast.LENGTH_SHORT).show()
+                val builder : AlertDialog.Builder = AlertDialog.Builder(requireContext())
+                builder.setTitle("連線失敗，請確認連線狀態")
+                builder.setPositiveButton("確定") { _, _ -> }
+                val dialog : AlertDialog = builder.create()
+                dialog.show()
             })
         queue.add(stringRequest)
 

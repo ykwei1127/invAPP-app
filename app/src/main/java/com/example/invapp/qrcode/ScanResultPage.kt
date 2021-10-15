@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
@@ -40,8 +41,6 @@ class ScanResultPage : Fragment() {
         val buttonBackScan = requireView().findViewById<Button>(R.id.button_backScan)
         val textViewScanResult = requireView().findViewById<TextView>(R.id.textView_scanResult)
         val progressBarScanResult = requireView().findViewById<ProgressBar>(R.id.progressBar_scanResult)
-
-        progressBarScanResult.visibility = View.VISIBLE
 
         // 回首頁
         buttonGoHome.setOnClickListener {
@@ -93,7 +92,12 @@ class ScanResultPage : Fragment() {
                     val dataset = JSONArray()
                     recyclerView?.adapter = ScanResultAdapter(this, dataset)
                     recyclerView?.setHasFixedSize(true)
-                    Toast.makeText(context, "連線失敗", Toast.LENGTH_SHORT).show()
+                    progressBarScanResult.visibility = View.INVISIBLE
+                    val builder : AlertDialog.Builder = AlertDialog.Builder(requireContext())
+                    builder.setTitle("連線失敗，請確認連線狀態")
+                    builder.setPositiveButton("確定") { _, _ -> }
+                    val dialog : AlertDialog = builder.create()
+                    dialog.show()
                 })
             queue.add(stringRequest)
         } else {

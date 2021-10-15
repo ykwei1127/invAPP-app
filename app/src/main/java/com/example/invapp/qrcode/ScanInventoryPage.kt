@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.android.volley.Request
@@ -151,7 +152,11 @@ class ScanInventoryPage : Fragment() {
             },
             { error ->
                 println("DEBUG: $error")
-                Toast.makeText(context, "連線失敗", Toast.LENGTH_SHORT).show()
+                val builder : AlertDialog.Builder = AlertDialog.Builder(requireContext())
+                builder.setTitle("連線失敗，請確認連線狀態")
+                builder.setPositiveButton("確定") { _, _ -> }
+                val dialog : AlertDialog = builder.create()
+                dialog.show()
             })
         queue.add(stringRequest)
 
@@ -194,7 +199,11 @@ class ScanInventoryPage : Fragment() {
                     },
                     {
                         progressBarQrcode.visibility = View.INVISIBLE
-                        Toast.makeText(context, "儲存失敗", Toast.LENGTH_SHORT).show()
+                        val builder : AlertDialog.Builder = AlertDialog.Builder(requireContext())
+                        builder.setTitle("連線失敗，請確認連線狀態")
+                        builder.setPositiveButton("確定") { _, _ -> }
+                        val dialog : AlertDialog = builder.create()
+                        dialog.show()
                     }
                 )
                 que.add(jsonObjectRequest)

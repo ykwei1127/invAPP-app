@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.android.volley.Request
@@ -71,7 +72,11 @@ class SingleInventoryPage : Fragment() {
                 }
             },
             {
-                Toast.makeText(context, "連線失敗", Toast.LENGTH_SHORT).show()
+                val builder : AlertDialog.Builder = AlertDialog.Builder(requireContext())
+                builder.setTitle("連線失敗，請確認連線狀態")
+                builder.setPositiveButton("確定") { _, _ -> }
+                val dialog : AlertDialog = builder.create()
+                dialog.show()
             })
         queueUnit.add(stringRequest)
 
@@ -130,7 +135,11 @@ class SingleInventoryPage : Fragment() {
                     },
                     {
                         progressBarSingleInventory.visibility = View.INVISIBLE
-                        Toast.makeText(context, "儲存失敗", Toast.LENGTH_SHORT).show()
+                        val builder : AlertDialog.Builder = AlertDialog.Builder(requireContext())
+                        builder.setTitle("儲存失敗，請確認連線狀態")
+                        builder.setPositiveButton("確定") { _, _ -> }
+                        val dialog : AlertDialog = builder.create()
+                        dialog.show()
                     })
                 queue.add(jsonObjectRequest)
             }

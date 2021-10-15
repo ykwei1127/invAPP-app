@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
@@ -55,6 +56,9 @@ class SearchPage : Fragment() {
             if (query == "") {
                 editTextKeyWord.error = "請輸入查詢關鍵字"
             } else {
+                // 關閉鍵盤
+                val imm : InputMethodManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(view.windowToken,0)
                 progressBarSearch.visibility = View.VISIBLE
                 val url = SingletonClass.instance.ip + "/appGetSearchResult/$query"
                 val queue = Volley.newRequestQueue(activity?.applicationContext)
@@ -72,13 +76,15 @@ class SearchPage : Fragment() {
                             val controller: NavController = requireView().let { it1 -> Navigation.findNavController(it1) }
                             controller.navigate(R.id.action_searchPage_to_searchResultPage, bundle)
                         }
-                        // 關閉鍵盤
-                        val imm : InputMethodManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                        imm.hideSoftInputFromWindow(view.windowToken,0)
                     },
                     {
+                        // 連線失敗視窗
                         progressBarSearch.visibility = View.INVISIBLE
-                        Toast.makeText(context, "連線失敗", Toast.LENGTH_SHORT).show()
+                        val builder : AlertDialog.Builder = AlertDialog.Builder(requireContext())
+                        builder.setTitle("連線失敗，請確認連線")
+                        builder.setPositiveButton("確定") { _, _ -> }
+                        val dialog : AlertDialog = builder.create()
+                        dialog.show()
                     })
                 queue.add(stringRequest)
             }

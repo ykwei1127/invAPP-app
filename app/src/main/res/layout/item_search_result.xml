@@ -6,7 +6,8 @@
     android:layout_height="wrap_content">
 
     <TableLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/tableLayout_searchResult"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:divider="@drawable/table_v_divider"
         android:showDividers="end|none"
@@ -17,19 +18,21 @@
 
         <TableRow
             android:id="@+id/tableRow_searchResult"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:divider="@drawable/table_h_divider"
-            android:gravity="center"
+            android:focusable="true"
+            android:gravity="center_vertical"
             android:showDividers="middle|beginning|end"
-            android:focusable="true">
+            android:weightSum="10">
 
             <TextView
                 android:id="@+id/textView_searchMedCode"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
                 android:gravity="center"
                 android:padding="10dp"
                 android:textColor="#000000"
@@ -38,14 +41,16 @@
 
             <TextView
                 android:id="@+id/textView_searchMedName"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7"
                 android:gravity="center"
                 android:padding="10dp"
                 android:textColor="#000000"
                 android:textSize="20sp"
-                tools:text="A-Cal(Ca Carbonate)自費	" />
+                tools:text="A-Cal(Ca Carbonate)自費	1231231" />
         </TableRow>
 
     </TableLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
