@@ -10,6 +10,7 @@ import android.widget.Button
 import com.example.invapp.R
 import com.example.invapp.inventory.InventoryActivity
 import com.example.invapp.qrcode.QrcodeActivity
+import com.example.invapp.singleton.SingletonClass
 
 class HomePage : Fragment() {
 
@@ -31,9 +32,11 @@ class HomePage : Fragment() {
         val buttonInventory = requireView().findViewById<Button>(R.id.button_inventory)
 
         buttonQrcode.setOnClickListener {
+            SingletonClass.instance.action = "掃Qrcode盤點"
             startActivity(Intent(context, QrcodeActivity::class.java))
         }
         buttonInventory.setOnClickListener {
+            SingletonClass.instance.action = "加減單一藥品數量"
             startActivity(Intent(context, InventoryActivity::class.java))
         }
     }

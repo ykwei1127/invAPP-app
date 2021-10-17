@@ -6,6 +6,8 @@ class SingletonClass private constructor(){
     var currentUser : String? = null
     var ip : String? = null
 
+    var action : String? = null
+
     var qrcodeUnit : String? = null
     var qrcodeGroup : String? = null
     var qrcodeCode : String? = null

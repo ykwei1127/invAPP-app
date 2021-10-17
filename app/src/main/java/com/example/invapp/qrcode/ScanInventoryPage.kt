@@ -20,6 +20,8 @@ import com.example.invapp.R
 import com.example.invapp.singleton.SingletonClass
 import org.json.JSONArray
 import org.json.JSONObject
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class ScanInventoryPage : Fragment() {
@@ -53,6 +55,8 @@ class ScanInventoryPage : Fragment() {
         val buttonGoHome = requireView().findViewById<Button>(R.id.button_goHome)
         val buttonBack = requireView().findViewById<Button>(R.id.button_back)
 
+        val user : String = SingletonClass.instance.currentUser.toString()
+        val action : String = SingletonClass.instance.action.toString()
         val unit : String = SingletonClass.instance.qrcodeUnit.toString()
         val group : String = SingletonClass.instance.qrcodeGroup.toString()
         val code : String = SingletonClass.instance.qrcodeCode.toString()
@@ -168,9 +172,18 @@ class ScanInventoryPage : Fragment() {
             } else {
                 progressBarQrcode.visibility = View.VISIBLE
                 val jsonObject = JSONObject()
+                jsonObject.put("使用者", user)
+                // 取得時間
+                val sdf = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+                val cal = Calendar.getInstance()
+                val time = sdf.format(cal.time)
+                jsonObject.put("時間", time)
+                jsonObject.put("功能", action)
                 jsonObject.put("單位", unit)
                 jsonObject.put("組別", group)
                 jsonObject.put("代碼", code)
+                jsonObject.put("藥名", name)
+                jsonObject.put("加減數量", "")
                 when {
                     editTextInputPrePackedNumber.text.toString() == "" -> {
                         jsonObject.put("App盤點預包數量", 0)

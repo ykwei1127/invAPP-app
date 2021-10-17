@@ -22,6 +22,8 @@ import com.example.invapp.qrcode.QrcodeActivity
 import com.example.invapp.singleton.SingletonClass
 import org.json.JSONArray
 import org.json.JSONObject
+import java.text.SimpleDateFormat
+import java.util.*
 
 class SingleInventoryPage : Fragment() {
 
@@ -52,6 +54,8 @@ class SingleInventoryPage : Fragment() {
         val progressBarSingleInventory = requireView().findViewById<ProgressBar>(R.id.progressBar_singleInventory)
         val editTextCalculateAmount = requireView().findViewById<EditText>(R.id.editText_calculateAmount)
 
+        val user : String = SingletonClass.instance.currentUser.toString()
+        val action : String = SingletonClass.instance.action.toString()
         val unit : String = SingletonClass.instance.inventoryUnit.toString()
         val group : String = SingletonClass.instance.inventoryGroup.toString()
         val code : String = SingletonClass.instance.inventoryCode.toString()
@@ -113,12 +117,24 @@ class SingleInventoryPage : Fragment() {
             } else {
                 progressBarSingleInventory.visibility = View.VISIBLE
                 val jsonObject = JSONObject()
+                jsonObject.put("使用者", user)
+                // 取得時間
+                val sdf = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+                val cal = Calendar.getInstance()
+                val time = sdf.format(cal.time)
+                jsonObject.put("時間", time)
+                jsonObject.put("功能", action)
                 jsonObject.put("單位", unit)
                 jsonObject.put("組別", group)
                 jsonObject.put("代碼", code)
+                jsonObject.put("藥名", name)
                 if (toggleButton.isChecked) {
+                    jsonObject.put("加減數量", calculateAmount)
+                    jsonObject.put("App盤點預包數量", "")
                     jsonObject.put("App盤點數量", calculateAmount)
                 } else {
+                    jsonObject.put("加減數量", "-$calculateAmount")
+                    jsonObject.put("App盤點預包數量", "")
                     jsonObject.put("App盤點數量", "-$calculateAmount")
                 }
                 val url = SingletonClass.instance.ip + "/appSingleInventory"
