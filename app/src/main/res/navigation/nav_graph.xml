@@ -17,10 +17,22 @@
             app:exitAnim="@anim/fragment_close_exit"
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popExitAnim="@anim/fragment_close_exit" />
+        <action
+            android:id="@+id/action_loginPage_to_noEventPage"
+            app:destination="@id/noEventPage"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
     </fragment>
     <fragment
         android:id="@+id/homePage"
         android:name="com.example.invapp.home.HomePage"
         android:label="fragment_home_page"
         tools:layout="@layout/fragment_home_page" />
+    <fragment
+        android:id="@+id/noEventPage"
+        android:name="com.example.invapp.home.NoEventPage"
+        android:label="fragment_no_event_page"
+        tools:layout="@layout/fragment_no_event_page" />
 </navigation>

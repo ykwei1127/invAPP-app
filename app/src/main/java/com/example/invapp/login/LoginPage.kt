@@ -100,9 +100,37 @@ class LoginPage : Fragment() {
                                     } else {
                                         editor?.putString("CHECKING", "0")?.apply()
                                     }
-                                    progressBarLogin.visibility = View.INVISIBLE
-                                    val controller : NavController = requireView().let { it1 -> Navigation.findNavController(it1) }
-                                    controller.navigate(R.id.action_loginPage_to_homePage)
+                                    // 確認目前最新一天的盤點，有沒有展開盤點
+                                    val url2 = SingletonClass.instance.ip + "/appCheckOpenInventory"
+                                    val queue2 = Volley.newRequestQueue(activity?.applicationContext)
+                                    val stringRequest2 = StringRequest(
+                                        Request.Method.GET, url2,
+                                        { response ->
+                                            val data = JSONArray(response)
+                                            if (data[1] == 0) {
+                                                progressBarLogin.visibility = View.INVISIBLE
+                                                val controller : NavController = requireView().let { it1 -> Navigation.findNavController(it1) }
+                                                controller.navigate(R.id.action_loginPage_to_noEventPage)
+                                            } else {
+                                                progressBarLogin.visibility = View.INVISIBLE
+                                                val bundle = Bundle()
+                                                bundle.putString("date", data[0].toString())
+                                                bundle.putString("searchResult", response)
+                                                val controller : NavController = requireView().let { it1 -> Navigation.findNavController(it1) }
+                                                controller.navigate(R.id.action_loginPage_to_homePage, bundle)
+                                            }
+                                        },
+                                        {
+                                            // 連線失敗視窗
+                                            progressBarLogin.visibility = View.INVISIBLE
+                                            val builder : AlertDialog.Builder = AlertDialog.Builder(requireContext())
+                                            builder.setTitle("連線失敗，請確認連線")
+                                            builder.setPositiveButton("確定") { _, _ -> }
+                                            val dialog : AlertDialog = builder.create()
+                                            dialog.show()
+                                        })
+                                    queue2.add(stringRequest2)
+                                    //
                                 }
                             } else {
                                 progressBarLogin.visibility = View.INVISIBLE

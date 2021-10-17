@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import com.example.invapp.R
 import com.example.invapp.inventory.InventoryActivity
 import com.example.invapp.qrcode.QrcodeActivity
@@ -30,9 +31,14 @@ class HomePage : Fragment() {
         super.onActivityCreated(savedInstanceState)
         val buttonQrcode = requireView().findViewById<Button>(R.id.button_qrcode)
         val buttonInventory = requireView().findViewById<Button>(R.id.button_inventory)
+        val textViewDate = requireView().findViewById<TextView>(R.id.textView_date)
+
+        // 盤點日期
+        val date = arguments?.getString("date").toString()
+        textViewDate.text = "盤點日期\n$date"
 
         buttonQrcode.setOnClickListener {
-            SingletonClass.instance.action = "掃Qrcode盤點"
+            SingletonClass.instance.action = "掃Qrcode進行盤點"
             startActivity(Intent(context, QrcodeActivity::class.java))
         }
         buttonInventory.setOnClickListener {
