@@ -1,7 +1,5 @@
 package com.example.invapp.singleton
 
-import com.example.invapp.model.Data
-
 class SingletonClass private constructor(){
     var currentUser : String? = null
     var ip : String? = null
