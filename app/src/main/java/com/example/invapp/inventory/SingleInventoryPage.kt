@@ -1,6 +1,7 @@
 package com.example.invapp.inventory
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -17,6 +18,7 @@ import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.bumptech.glide.Glide
 import com.example.invapp.R
 import com.example.invapp.qrcode.QrcodeActivity
 import com.example.invapp.singleton.SingletonClass
@@ -60,6 +62,20 @@ class SingleInventoryPage : Fragment() {
         val group : String = SingletonClass.instance.inventoryGroup.toString()
         val code : String = SingletonClass.instance.inventoryCode.toString()
         val name : String = SingletonClass.instance.inventoryName.toString()
+
+        // 顯示圖片
+        val imageURL = "https://picsum.photos/id/237/500/400"
+        val imageView = requireView().findViewById<ImageView>(R.id.imageView_drug)
+        Glide.with(this)
+            .load(imageURL)
+            .placeholder(R.drawable.ic_baseline_photo_24)
+            .into(imageView)
+        imageView.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("imageURL", imageURL)
+            val controller : NavController = requireView().let { it1 -> Navigation.findNavController(it1) }
+            controller.navigate(R.id.action_singleInventoryPage_to_imagePage, bundle)
+        }
 
         // 取得加減單一藥品數量的計價單位
         val urlUnit = SingletonClass.instance.ip + "/appGetSingleInventoryUnit/$unit/$group/$code"

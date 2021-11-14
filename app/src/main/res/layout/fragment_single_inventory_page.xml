@@ -211,7 +211,8 @@
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_weight="7"
-                android:src="@drawable/ic_baseline_photo_24" />
+                android:src="@drawable/ic_baseline_photo_24"
+                tools:ignore="SpeakableTextPresentCheck" />
         </TableRow>
     </TableLayout>
 

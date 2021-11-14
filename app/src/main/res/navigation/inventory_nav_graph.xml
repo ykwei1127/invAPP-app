@@ -55,10 +55,31 @@
         android:id="@+id/singleInventoryPage"
         android:name="com.example.invapp.inventory.SingleInventoryPage"
         android:label="fragment_single_inventory_page"
-        tools:layout="@layout/fragment_single_inventory_page" />
+        tools:layout="@layout/fragment_single_inventory_page" >
+        <action
+            android:id="@+id/action_singleInventoryPage_to_imagePage"
+            app:destination="@id/imagePage"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+    </fragment>
     <fragment
         android:id="@+id/firstTimeInventoryPage"
         android:name="com.example.invapp.inventory.FirstTimeInventoryPage"
         android:label="fragment_first_time_inventory_page"
-        tools:layout="@layout/fragment_first_time_inventory_page" />
+        tools:layout="@layout/fragment_first_time_inventory_page" >
+        <action
+            android:id="@+id/action_firstTimeInventoryPage_to_imagePage"
+            app:destination="@id/imagePage"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/imagePage"
+        android:name="com.example.invapp.share.ImagePage"
+        android:label="fragment_image_page"
+        tools:layout="@layout/fragment_image_page" />
 </navigation>

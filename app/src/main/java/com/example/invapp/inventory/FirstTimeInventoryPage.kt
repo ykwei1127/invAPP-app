@@ -9,10 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.bumptech.glide.Glide
 import com.example.invapp.R
 import com.example.invapp.singleton.SingletonClass
 import org.json.JSONArray
@@ -58,6 +61,20 @@ class FirstTimeInventoryPage : Fragment() {
         val group : String = SingletonClass.instance.inventoryGroup.toString()
         val code : String = SingletonClass.instance.inventoryCode.toString()
         val name : String = SingletonClass.instance.inventoryName.toString()
+
+        // 顯示圖片
+        val imageURL = "https://picsum.photos/id/237/500/400"
+        val imageView = requireView().findViewById<ImageView>(R.id.imageView_firstTimeDrug)
+        Glide.with(this)
+            .load(imageURL)
+            .placeholder(R.drawable.ic_baseline_photo_24)
+            .into(imageView)
+        imageView.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("imageURL", imageURL)
+            val controller : NavController = requireView().let { it1 -> Navigation.findNavController(it1) }
+            controller.navigate(R.id.action_firstTimeInventoryPage_to_imagePage, bundle)
+        }
 
         // 將資料顯示在表格
         textViewMedUnit.text = unit

@@ -35,5 +35,18 @@
         android:id="@+id/scanInventoryPage"
         android:name="com.example.invapp.qrcode.ScanInventoryPage"
         android:label="fragment_scan_inventory_page"
-        tools:layout="@layout/fragment_scan_inventory_page" />
+        tools:layout="@layout/fragment_scan_inventory_page" >
+        <action
+            android:id="@+id/action_scanInventoryPage_to_imagePage2"
+            app:destination="@id/imagePage2"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/imagePage2"
+        android:name="com.example.invapp.share.ImagePage"
+        android:label="fragment_image_page"
+        tools:layout="@layout/fragment_image_page" />
 </navigation>
