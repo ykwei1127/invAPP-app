@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.android.volley.Request
@@ -62,20 +63,6 @@ class FirstTimeInventoryPage : Fragment() {
         val code : String = SingletonClass.instance.inventoryCode.toString()
         val name : String = SingletonClass.instance.inventoryName.toString()
 
-        // 顯示圖片
-        val imageURL = "https://picsum.photos/id/237/500/400"
-        val imageView = requireView().findViewById<ImageView>(R.id.imageView_firstTimeDrug)
-        Glide.with(this)
-            .load(imageURL)
-            .placeholder(R.drawable.ic_baseline_photo_24)
-            .into(imageView)
-        imageView.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putString("imageURL", imageURL)
-            val controller : NavController = requireView().let { it1 -> Navigation.findNavController(it1) }
-            controller.navigate(R.id.action_firstTimeInventoryPage_to_imagePage, bundle)
-        }
-
         // 將資料顯示在表格
         textViewMedUnit.text = unit
         textViewMedGroup.text = group
@@ -98,7 +85,23 @@ class FirstTimeInventoryPage : Fragment() {
         val stringRequest = StringRequest(
             Request.Method.GET, url,
             { response ->
+                progressBarQrcode.visibility = View.INVISIBLE
                 val jsonArray = JSONArray(response)
+                // 取回傳第二個位置，圖片URL->顯示圖片
+                val jsonObjectURL = JSONObject(jsonArray[1].toString())
+                val imageURL = jsonObjectURL["URL_URL"].toString()
+                val imageView = requireView().findViewById<ImageView>(R.id.imageView_firstTimeDrug)
+                Glide.with(this)
+                    .load(imageURL)
+                    .placeholder(R.drawable.ic_baseline_photo_24)
+                    .into(imageView)
+                imageView.setOnClickListener {
+                    val bundle = Bundle()
+                    bundle.putString("imageURL", imageURL)
+                    val controller : NavController = requireView().let { it1 -> Navigation.findNavController(it1) }
+                    controller.navigate(R.id.action_firstTimeInventoryPage_to_imagePage, bundle)
+                }
+                // 取回傳第一個位置，預包資訊
                 val jsonObject = JSONObject(jsonArray[0].toString())
                 if (jsonObject["預包單位"].toString() == "無") {
                     textViewPrePackedUnit.visibility = View.INVISIBLE
@@ -170,8 +173,13 @@ class FirstTimeInventoryPage : Fragment() {
             },
             { error ->
                 println("DEBUG: $error")
-                Toast.makeText(context, "連線失敗", Toast.LENGTH_SHORT).show()
+                val builder : AlertDialog.Builder = AlertDialog.Builder(requireContext())
+                builder.setTitle("儲存失敗，請確認連線狀態")
+                builder.setPositiveButton("確定") { _, _ -> }
+                val dialog : AlertDialog = builder.create()
+                dialog.show()
             })
+        progressBarQrcode.visibility = View.VISIBLE
         queue.add(stringRequest)
 
         buttonSave.setOnClickListener {
@@ -214,15 +222,29 @@ class FirstTimeInventoryPage : Fragment() {
                     Request.Method.POST, url2, jsonObject,
                     {  response ->
                         println("DEBUG: $response")
-                        progressBarQrcode.visibility = View.INVISIBLE
-                        Toast.makeText(context, "儲存完成", Toast.LENGTH_SHORT).show()
-                        activity?.finish()
-                        val intent = Intent(activity, InventoryActivity::class.java)
-                        startActivity(intent)
+                        val check = response["status"]
+                        if (check == "success") {
+                            progressBarQrcode.visibility = View.INVISIBLE
+                            Toast.makeText(context, "儲存完成", Toast.LENGTH_SHORT).show()
+                            activity?.finish()
+                            val intent = Intent(activity, InventoryActivity::class.java)
+                            startActivity(intent)
+                        } else if (check == "fail") {
+                            progressBarQrcode.visibility = View.INVISIBLE
+                            val builder : AlertDialog.Builder = AlertDialog.Builder(requireContext())
+                            builder.setTitle("盤點已結束，請確認是否已展開盤點")
+                            builder.setPositiveButton("確定") { _, _ -> }
+                            val dialog : AlertDialog = builder.create()
+                            dialog.show()
+                        }
                     },
                     {
                         progressBarQrcode.visibility = View.INVISIBLE
-                        Toast.makeText(context, "儲存失敗", Toast.LENGTH_SHORT).show()
+                        val builder : AlertDialog.Builder = AlertDialog.Builder(requireContext())
+                        builder.setTitle("儲存失敗，請確認連線狀態")
+                        builder.setPositiveButton("確定") { _, _ -> }
+                        val dialog : AlertDialog = builder.create()
+                        dialog.show()
                     }
                 )
                 que.add(jsonObjectRequest)

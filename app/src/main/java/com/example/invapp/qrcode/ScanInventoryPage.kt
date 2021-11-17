@@ -1,5 +1,6 @@
 package com.example.invapp.qrcode
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -18,6 +19,7 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
 import com.example.invapp.R
+import com.example.invapp.inventory.InventoryActivity
 import com.example.invapp.singleton.SingletonClass
 import org.json.JSONArray
 import org.json.JSONObject
@@ -63,20 +65,6 @@ class ScanInventoryPage : Fragment() {
         val code : String = SingletonClass.instance.qrcodeCode.toString()
         val name : String = SingletonClass.instance.qrcodeName.toString()
 
-        // 顯示圖片
-        val imageURL = "https://picsum.photos/id/237/500/400"
-        val imageView = requireView().findViewById<ImageView>(R.id.imageView_qrcodeDrug)
-        Glide.with(this)
-            .load(imageURL)
-            .placeholder(R.drawable.ic_baseline_photo_24)
-            .into(imageView)
-        imageView.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putString("imageURL", imageURL)
-            val controller : NavController = requireView().let { it1 -> Navigation.findNavController(it1) }
-            controller.navigate(R.id.action_scanInventoryPage_to_imagePage2, bundle)
-        }
-
         // 將資料顯示在表格
         textViewMedUnit.text = unit
         textViewMedGroup.text = group
@@ -99,7 +87,23 @@ class ScanInventoryPage : Fragment() {
         val stringRequest = StringRequest(
             Request.Method.GET, url,
             { response ->
+                progressBarQrcode.visibility = View.INVISIBLE
                 val jsonArray = JSONArray(response)
+                // 取回傳第二個位置，圖片URL->顯示圖片
+                val jsonObjectURL = JSONObject(jsonArray[1].toString())
+                val imageURL = jsonObjectURL["URL_URL"].toString()
+                val imageView = requireView().findViewById<ImageView>(R.id.imageView_qrcodeDrug)
+                Glide.with(this)
+                    .load(imageURL)
+                    .placeholder(R.drawable.ic_baseline_photo_24)
+                    .into(imageView)
+                imageView.setOnClickListener {
+                    val bundle = Bundle()
+                    bundle.putString("imageURL", imageURL)
+                    val controller : NavController = requireView().let { it1 -> Navigation.findNavController(it1) }
+                    controller.navigate(R.id.action_scanInventoryPage_to_imagePage2, bundle)
+                }
+                // 取回傳第一個位置，預包資訊
                 val jsonObject = JSONObject(jsonArray[0].toString())
                 if (jsonObject["預包單位"].toString() == "無") {
                     textViewPrePackedUnit.visibility = View.INVISIBLE
@@ -177,6 +181,7 @@ class ScanInventoryPage : Fragment() {
                 val dialog : AlertDialog = builder.create()
                 dialog.show()
             })
+        progressBarQrcode.visibility = View.VISIBLE
         queue.add(stringRequest)
 
         // 儲存繼續輸入
@@ -220,10 +225,20 @@ class ScanInventoryPage : Fragment() {
                     Request.Method.POST, url2, jsonObject,
                     {  response ->
                         println("DEBUG: $response")
-                        progressBarQrcode.visibility = View.INVISIBLE
-                        Toast.makeText(context, "儲存完成", Toast.LENGTH_SHORT).show()
-                        val navController : NavController = Navigation.findNavController(requireActivity(), R.id.fragment_qrcode)
-                        navController.navigateUp()
+                        val check = response["status"]
+                        if (check == "success") {
+                            progressBarQrcode.visibility = View.INVISIBLE
+                            Toast.makeText(context, "儲存完成", Toast.LENGTH_SHORT).show()
+                            val navController : NavController = Navigation.findNavController(requireActivity(), R.id.fragment_qrcode)
+                            navController.navigateUp()
+                        } else if (check == "fail") {
+                            progressBarQrcode.visibility = View.INVISIBLE
+                            val builder : AlertDialog.Builder = AlertDialog.Builder(requireContext())
+                            builder.setTitle("盤點已結束，請確認是否已展開盤點")
+                            builder.setPositiveButton("確定") { _, _ -> }
+                            val dialog : AlertDialog = builder.create()
+                            dialog.show()
+                        }
                     },
                     {
                         progressBarQrcode.visibility = View.INVISIBLE

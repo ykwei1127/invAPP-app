@@ -63,30 +63,33 @@ class SingleInventoryPage : Fragment() {
         val code : String = SingletonClass.instance.inventoryCode.toString()
         val name : String = SingletonClass.instance.inventoryName.toString()
 
-        // 顯示圖片
-        val imageURL = "https://picsum.photos/id/237/500/400"
-        val imageView = requireView().findViewById<ImageView>(R.id.imageView_drug)
-        Glide.with(this)
-            .load(imageURL)
-            .placeholder(R.drawable.ic_baseline_photo_24)
-            .into(imageView)
-        imageView.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putString("imageURL", imageURL)
-            val controller : NavController = requireView().let { it1 -> Navigation.findNavController(it1) }
-            controller.navigate(R.id.action_singleInventoryPage_to_imagePage, bundle)
-        }
-
         // 取得加減單一藥品數量的計價單位
         val urlUnit = SingletonClass.instance.ip + "/appGetSingleInventoryUnit/$unit/$group/$code"
         val queueUnit = Volley.newRequestQueue(activity?.applicationContext)
         val stringRequest = StringRequest(
             Request.Method.GET, urlUnit,
             { response ->
-                if (JSONArray(response) == JSONArray()) {
+                progressBarSingleInventory.visibility = View.INVISIBLE
+                // 取得imageURL並顯示圖片
+                val jsonArray = JSONArray(response)
+                val jsonObjectURL = JSONObject(jsonArray[1].toString())
+                val imageURL = jsonObjectURL["URL_URL"].toString()
+                val imageView = requireView().findViewById<ImageView>(R.id.imageView_drug)
+                Glide.with(this)
+                    .load(imageURL)
+                    .placeholder(R.drawable.ic_baseline_photo_24)
+                    .into(imageView)
+                imageView.setOnClickListener {
+                    val bundle = Bundle()
+                    bundle.putString("imageURL", imageURL)
+                    val controller : NavController = requireView().let { it1 -> Navigation.findNavController(it1) }
+                    controller.navigate(R.id.action_singleInventoryPage_to_imagePage, bundle)
+                }
+                // 取得計價單位
+                if (jsonArray[0].toString() == "") {
                     Toast.makeText(context, "計價單位取得失敗", Toast.LENGTH_SHORT).show()
                 } else {
-                    val salesUnit = JSONObject(JSONArray(response)[0].toString())
+                    val salesUnit = JSONObject(jsonArray[0].toString())
                     val unitResult = salesUnit.get("計價單位").toString()
                     textViewSingleInventoryUnit.text = unitResult
                 }
@@ -98,6 +101,7 @@ class SingleInventoryPage : Fragment() {
                 val dialog : AlertDialog = builder.create()
                 dialog.show()
             })
+        progressBarSingleInventory.visibility = View.VISIBLE
         queueUnit.add(stringRequest)
 
         // 將資料顯示在表格
@@ -159,11 +163,21 @@ class SingleInventoryPage : Fragment() {
                     Request.Method.POST, url, jsonObject,
                     { response ->
                         println("DEBUG: $response")
-                        progressBarSingleInventory.visibility = View.INVISIBLE
-                        Toast.makeText(context, "儲存完成", Toast.LENGTH_SHORT).show()
-                        activity?.finish()
-                        val intent = Intent(activity, InventoryActivity::class.java)
-                        startActivity(intent)
+                        val check = response["status"]
+                        if (check == "success") {
+                            progressBarSingleInventory.visibility = View.INVISIBLE
+                            Toast.makeText(context, "儲存完成", Toast.LENGTH_SHORT).show()
+                            activity?.finish()
+                            val intent = Intent(activity, InventoryActivity::class.java)
+                            startActivity(intent)
+                        } else if (check == "fail") {
+                            progressBarSingleInventory.visibility = View.INVISIBLE
+                            val builder : AlertDialog.Builder = AlertDialog.Builder(requireContext())
+                            builder.setTitle("盤點已結束，請確認是否已展開盤點")
+                            builder.setPositiveButton("確定") { _, _ -> }
+                            val dialog : AlertDialog = builder.create()
+                            dialog.show()
+                        }
                     },
                     {
                         progressBarSingleInventory.visibility = View.INVISIBLE
