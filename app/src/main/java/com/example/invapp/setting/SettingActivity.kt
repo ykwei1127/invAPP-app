@@ -19,7 +19,7 @@ class SettingActivity : AppCompatActivity() {
         val buttonSetup = findViewById<Button>(R.id.button_setup)
 
         val pref = getSharedPreferences("Setting", Context.MODE_PRIVATE)
-        val ip = pref?.getString("IP", "")
+        val ip = pref?.getString("IP", "172.26.2.25")
         if (ip != "") {
             editTextIP.setText(ip)
         }

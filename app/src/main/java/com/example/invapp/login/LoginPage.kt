@@ -71,7 +71,7 @@ class LoginPage : Fragment() {
                 }
                 else -> {
                     progressBarLogin.visibility = View.VISIBLE
-                    val ip = pref?.getString("IP", "")
+                    val ip = pref?.getString("IP", "172.26.2.25")
                     // save current ip
                     SingletonClass.instance.ip = "http://$ip:8000"
                     val url = SingletonClass.instance.ip+"/appGetUsers"

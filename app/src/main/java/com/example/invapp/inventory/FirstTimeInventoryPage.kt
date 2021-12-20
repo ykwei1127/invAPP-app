@@ -108,8 +108,12 @@ class FirstTimeInventoryPage : Fragment() {
                     editTextInputPrePackedNumber.setText("0")
                     editTextInputPrePackedNumber.isEnabled = false
                     textViewAutoCount.text = "0"
+                    textViewPrePackedUnit.text = jsonObject["預包單位"].toString()
+                } else {
+                    val prePackedUnitString = jsonObject["預包單位"].toString() + '(' + jsonObject["預包數量"].toString() + ')'
+                    textViewPrePackedUnit.text = prePackedUnitString
                 }
-                textViewPrePackedUnit.text = jsonObject["預包單位"].toString()
+
                 textViewSalesUnit.text = jsonObject["計價單位"].toString()
 
                 val prePackedNumber = jsonObject["預包數量"].toString().toInt()
