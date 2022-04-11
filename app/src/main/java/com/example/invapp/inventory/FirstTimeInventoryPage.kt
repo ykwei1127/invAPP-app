@@ -80,7 +80,10 @@ class FirstTimeInventoryPage : Fragment() {
         }
 
         // 取得盤點的預包單位、計價單位、數量，自動顯示計算結果
-        val url = SingletonClass.instance.ip + "/appGetData/$unit/$group/$code"
+        // URL包含中文，轉換%
+        val unitInURL = java.net.URLEncoder.encode(unit, "utf-8")
+        val groupInURL = java.net.URLEncoder.encode(group, "utf-8")
+        val url = SingletonClass.instance.ip + "/appGetData/$unitInURL/$groupInURL/$code"
         val queue = Volley.newRequestQueue(activity?.applicationContext)
         val stringRequest = StringRequest(
             Request.Method.GET, url,

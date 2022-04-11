@@ -37,19 +37,31 @@
                 android:gravity="center"
                 android:padding="10dp"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 tools:text="1ACAL " />
 
             <TextView
                 android:id="@+id/textView_medName"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="7"
+                android:layout_weight="4.5"
                 android:gravity="center"
                 android:padding="10dp"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 tools:text="A-Cal(Ca Carbonate)自費" />
+
+            <TextView
+                android:id="@+id/textView_medTotalAmount"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                tools:text="1000" />
+
         </TableRow>
 
     </TableLayout>

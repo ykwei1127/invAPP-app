@@ -15,6 +15,7 @@ import androidx.navigation.Navigation
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.invapp.BuildConfig
 import com.example.invapp.R
 import com.example.invapp.setting.SettingActivity
 import com.example.invapp.singleton.SingletonClass
@@ -46,6 +47,10 @@ class LoginPage : Fragment() {
         val buttonLogin = requireView().findViewById<Button>(R.id.button_login)
         val progressBarLogin = requireView().findViewById<ProgressBar>(R.id.progressBar_login)
         val checkBoxLogin = requireView().findViewById<CheckBox>(R.id.checkBox_login)
+        val textViewVersionName = requireView().findViewById<TextView>(R.id.textView_versionName)
+
+        val versionName = "Version: ${BuildConfig.VERSION_NAME}"
+        textViewVersionName.text = versionName
 
         val checking = pref?.getString("CHECKING", "0")
         if (checking == "1") {

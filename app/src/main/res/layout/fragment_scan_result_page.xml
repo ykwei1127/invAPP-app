@@ -67,11 +67,24 @@
                 android:id="@+id/textView_medNameTitle"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="7"
+                android:layout_weight="4.5"
                 android:background="#118bee"
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="防錯商品名"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/textView_medTotalAmountTitle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5"
+                android:background="#118bee"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="盤點量"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
                 android:textStyle="normal" />

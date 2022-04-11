@@ -20,6 +20,7 @@ class ScanResultAdapter(private val context: ScanResultPage, private val dataset
     class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val textViewMedCode : TextView = view.findViewById(R.id.textView_medCode)
         val textViewMedName : TextView = view.findViewById(R.id.textView_medName)
+        val textViewMedTotalAmount : TextView = view.findViewById(R.id.textView_medTotalAmount)
         val tableLayout : TableLayout = view.findViewById(R.id.tableLayout)
         val tableRow : TableRow = view.findViewById(R.id.tableRow)
     }
@@ -39,6 +40,11 @@ class ScanResultAdapter(private val context: ScanResultPage, private val dataset
         }
         holder.textViewMedCode.text = item.get("代碼").toString()
         holder.textViewMedName.text = item.get("藥名").toString()
+        if (item.get("App盤點總數量").toString() == "null") {
+            holder.textViewMedTotalAmount.text = ""
+        } else {
+            holder.textViewMedTotalAmount.text = item.get("App盤點總數量").toString()
+        }
 
         holder.tableRow.setOnClickListener {
             SingletonClass.instance.qrcodeCode = item.get("代碼").toString()

@@ -60,7 +60,9 @@ class SearchPage : Fragment() {
                 val imm : InputMethodManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(view.windowToken,0)
                 progressBarSearch.visibility = View.VISIBLE
-                val url = SingletonClass.instance.ip + "/appGetSearchResult/$query"
+                // URL包含中文，轉換%
+                val queryInUrl = java.net.URLEncoder.encode(query, "utf-8")
+                val url = SingletonClass.instance.ip + "/appGetSearchResult/$queryInUrl"
                 val queue = Volley.newRequestQueue(activity?.applicationContext)
                 val stringRequest = StringRequest(
                     Request.Method.GET, url,

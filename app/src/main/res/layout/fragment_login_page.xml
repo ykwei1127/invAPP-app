@@ -151,4 +151,14 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.2" />
 
+    <TextView
+        android:id="@+id/textView_versionName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp"
+        android:text="Version: 1.0.0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

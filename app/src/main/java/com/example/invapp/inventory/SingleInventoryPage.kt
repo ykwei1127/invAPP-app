@@ -64,7 +64,10 @@ class SingleInventoryPage : Fragment() {
         val name : String = SingletonClass.instance.inventoryName.toString()
 
         // 取得加減單一藥品數量的計價單位
-        val urlUnit = SingletonClass.instance.ip + "/appGetSingleInventoryUnit/$unit/$group/$code"
+        // URL包含中文，轉換%
+        val unitInURL = java.net.URLEncoder.encode(unit, "utf-8")
+        val groupInURL = java.net.URLEncoder.encode(group, "utf-8")
+        val urlUnit = SingletonClass.instance.ip + "/appGetSingleInventoryUnit/$unitInURL/$groupInURL/$code"
         val queueUnit = Volley.newRequestQueue(activity?.applicationContext)
         val stringRequest = StringRequest(
             Request.Method.GET, urlUnit,

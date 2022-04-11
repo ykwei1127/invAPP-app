@@ -70,7 +70,9 @@ class ScanResultPage : Fragment() {
             // 取得server qrcode位置的藥品
             scanResult = arguments?.getString("scanResult").toString()
             scanResult = scanResult.replace(")",") ")
-            val url = SingletonClass.instance.ip + "/appGetQrcodeResults/$scanResult"
+            // URL包含中文，轉換%
+            val scanResultInURL = java.net.URLEncoder.encode(scanResult, "utf-8").replace("+", "%20")
+            val url = SingletonClass.instance.ip + "/appGetQrcodeResults/$scanResultInURL"
             val queue = Volley.newRequestQueue(activity?.applicationContext)
             val stringRequest = StringRequest(
                 Request.Method.GET, url,
