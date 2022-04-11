@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/inventory_nav_graph"
-    app:startDestination="@id/searchPage">
+    app:startDestination="@id/searchAllPage">
 
     <fragment
         android:id="@+id/searchPage"
@@ -82,4 +82,13 @@
         android:name="com.example.invapp.share.ImagePage"
         android:label="fragment_image_page"
         tools:layout="@layout/fragment_image_page" />
+    <fragment
+        android:id="@+id/searchAllPage"
+        android:name="com.example.invapp.inventory.SearchAllPage"
+        android:label="fragment_search_all_page"
+        tools:layout="@layout/fragment_search_all_page" >
+        <action
+            android:id="@+id/action_searchAllPage_to_selectSearchResultPage"
+            app:destination="@id/selectSearchResultPage" />
+    </fragment>
 </navigation>

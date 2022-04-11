@@ -1,8 +1,10 @@
 package com.example.invapp.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.navigation.NavController
@@ -34,7 +36,10 @@ class SearchResultAdapter(private val dataset: JSONArray) : RecyclerView.Adapter
             SingletonClass.instance.inventoryCode = item.get("代碼").toString()
             SingletonClass.instance.inventoryName = item.get("藥名").toString()
             val controller : NavController = Navigation.findNavController(holder.itemView)
-            controller.navigate(R.id.action_searchResultPage_to_selectSearchResultPage)
+            controller.navigate(R.id.action_searchAllPage_to_selectSearchResultPage)
+
+            // 更改成與IOS相同的即時顯示搜尋結果的方式，下行為原版搜尋方式，採用註解方式
+            // controller.navigate(R.id.action_searchResultPage_to_selectSearchResultPage)
         }
     }
 

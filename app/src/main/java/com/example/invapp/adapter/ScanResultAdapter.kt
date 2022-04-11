@@ -11,6 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.invapp.R
+import com.example.invapp.inventory.SearchAllPage
 import com.example.invapp.qrcode.ScanResultPage
 import com.example.invapp.singleton.SingletonClass
 import org.json.JSONArray

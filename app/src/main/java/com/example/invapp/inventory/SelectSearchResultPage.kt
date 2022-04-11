@@ -1,11 +1,13 @@
 package com.example.invapp.inventory
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -41,6 +43,10 @@ class SelectSearchResultPage : Fragment() {
         val textViewSelectResult = requireView().findViewById<TextView>(R.id.textView_selectResult)
         val recyclerViewSelectSearchResult = requireView().findViewById<RecyclerView>(R.id.recyclerView_selectSearchResult)
         val progressBarSelectSearchResult = requireView().findViewById<ProgressBar>(R.id.progressBar_selectSearchResult)
+
+        // 關閉鍵盤
+        val imm : InputMethodManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view?.windowToken,0)
 
         // 選擇的藥品名稱
         textViewSelectResult.text = SingletonClass.instance.inventoryName
